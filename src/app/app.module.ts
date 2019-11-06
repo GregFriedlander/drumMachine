@@ -3,10 +3,12 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { SeqContainerComponent } from './seq-container/seq-container.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    SeqContainerComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,25 @@
+#container {
+  width: 45rem;
+  margin: 0 auto;
+  background-color: #bcbcbc;
+  padding: .5rem 0;
+  justify-content: space-evenly;
+  border-radius: .5rem;
+  .row {
+    width: 100%;
+    height: 3rem;
+    display: flex;
+    justify-content: space-evenly;
+    .box {
+    background-color: #283039;
+    width: 1.6rem;
+    height: 2.8rem;
+    }
+    + .row {
+      margin-top: 1rem;
+    }
+  }
+  .yellow-background {
+    background-color: yellow;
+  }
+}

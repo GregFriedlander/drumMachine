@@ -1,0 +1,50 @@
+<div id="container" #container>
+  <div id="row1" class="row">
+    <ng-container *ngFor="let box of boxes; let i = index">
+      <div
+        #pad
+        id="button{{ i }}"
+        (click)="activateStep(i, 1)"
+        class="box"
+        [ngStyle]="{
+          border: activeBox === i ? '2px yellow solid' : 'black',
+          'background-color': boxes[i] ? 'white' : '#283039'
+        }"
+      >
+      </div>
+    </ng-container>
+  </div>
+  <div id="row2" class="row">
+    <ng-container *ngFor="let box of boxes2; let i = index">
+      <div
+        #pad
+        (click)="activateStep(i, 2)"
+        class="box"
+        [ngStyle]="{
+          border: activeBox === i ? '2px yellow solid' : 'black',
+          'background-color': boxes2[i] ? 'white' : '283039'
+        }"
+      >
+      </div>
+    </ng-container>
+  </div>
+  <div id="row3" class="row">
+    <ng-container *ngFor="let box of boxes3; let i = index">
+      <div
+        #pad
+        (click)="activateStep(i, 3)"
+        class="box"
+        [ngStyle]="{
+          border: activeBox === i ? '2px yellow solid' : 'black',
+          'background-color': boxes3[i] ? 'white' : '283039'
+        }"
+      >
+      </div>
+    </ng-container>
+  </div>
+</div>
+<button (click)="play()">PLAY</button>
+<button (click)="stop()">STOP</button>
+<button (click)="reset()">RESET</button>
+<h1>{{bpm}}</h1>
+<div #button id="button" ></div>
