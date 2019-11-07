@@ -46,6 +46,7 @@
 <button (click)="play()">PLAY</button>
 <button (click)="stop()">STOP</button>
 <button (click)="reset()">RESET</button>
+<app-synth (newSynth)="setSynth($event)"></app-synth>
 <h1>{{bpm}}</h1>
 <app-dial id="bpm"
           [id]="'bpm'"

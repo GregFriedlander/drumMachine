@@ -12,8 +12,9 @@ import * as Tone from 'tone';
 export class SeqContainerComponent implements OnInit, AfterViewInit {
   @ViewChild('container', { static: false }) container: ElementRef;
   @ViewChild('button', { static: false }) button: ElementRef;
+  // @ViewChild('synthTest', {static: false}) synthTest;
 
-
+  synthTest;
   public synth: any;
   public sampler1: any;
   public boxes: boolean[];
@@ -85,7 +86,7 @@ export class SeqContainerComponent implements OnInit, AfterViewInit {
           );
         }
         if (this.boxes3[step]) {
-          this.synth.triggerAttackRelease(
+          this.synthTest.triggerAttackRelease(
             'A2',
             this.noteLengths[this.currentPeriod],
             time
@@ -141,5 +142,9 @@ export class SeqContainerComponent implements OnInit, AfterViewInit {
     console.log('v: ', v);
     Tone.Transport.bpm.value = v;
     this.bpm = v;
+  }
+
+  public setSynth(value) {
+    this.synthTest = value;
   }
 }
