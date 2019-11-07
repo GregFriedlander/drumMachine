@@ -1,20 +1,7 @@
 import { DOCUMENT } from '@angular/common';
-import {
-  AfterViewInit,
-  ChangeDetectionStrategy, ChangeDetectorRef,
-  Component,
-  ElementRef,
-  Inject,
-  NgZone,
-  OnChanges,
-  OnInit,
-  Renderer2,
-  ViewChild,
-  ViewEncapsulation
-} from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Inject, NgZone, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import * as _ from 'lodash';
 import * as Tone from 'tone';
-import * as Nexus from '../../assets/NexusUI.js';
 
 @Component({
   selector: 'app-seq-container',
@@ -28,6 +15,7 @@ export class SeqContainerComponent implements OnInit, AfterViewInit {
 
 
   public synth: any;
+  public sampler1: any;
   public boxes: boolean[];
   public boxes2: boolean[];
   public boxes3: boolean[];
@@ -44,13 +32,15 @@ export class SeqContainerComponent implements OnInit, AfterViewInit {
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private zone: NgZone,
-    private renderer: Renderer2,
-    private el: ElementRef,
-    private cdRef: ChangeDetectorRef
   ) {
     this.synth = new Tone.Synth();
+    this.sampler1 = new Tone.Sampler({
+      C3 : '../../assets/temp-audio/indst_kick_4.wav',
+      D3 : '../../assets/temp-audio/hip_sn_7.wav'
+    });
     this.configureSequence();
     this.synth.toMaster();
+    this.sampler1.toMaster();
     Tone.Transport.start();
     Tone.context.latencyHint = 'fastest';
     Tone.context.lookAhead = 0.01;
@@ -60,36 +50,11 @@ export class SeqContainerComponent implements OnInit, AfterViewInit {
     this.boxes = _.fill(_.range(16), false);
     this.boxes2 = _.fill(_.range(16), false);
     this.boxes3 = _.fill(_.range(16), false);
-    // Tone.Transport.bpm.value = 50;
     this.bpm = Tone.Transport.bpm.value;
-
-    // const newbutton = new Nexus.Dial('button');
-    // this.button = newbutton;
   }
 
   ngAfterViewInit(): void {
 
-    // Tone.Transport.bpm.value = 50;
-    // this.bpm = Tone.Transport.bpm.value;
-
-    const newbutton = new Nexus.Dial('button', {
-      min: 50,
-      max: 200,
-      step: 1,
-      value: 85
-    } );
-
-    newbutton.on('change', function(value?: any) {
-      // comp.signal.setValueAtTime(value, 0.1);
-      // comp.change.emit(value);
-      console.log('value: ', value);
-      Tone.Transport.bpm.value = value;
-    });
-    this.button = newbutton;
-    this.bpm = Tone.Transport.bpm.value;
-    this.cdRef.detectChanges();
-
-    // this.cdRef.detectChanges();
   }
 
   private configureSequence() {
@@ -106,17 +71,17 @@ export class SeqContainerComponent implements OnInit, AfterViewInit {
         }
         const step = i % 16;
         if (this.boxes[step]) {
-          this.synth.triggerAttackRelease(
-            'E4',
-            this.noteLengths[this.currentPeriod],
-            time
+          this.sampler1.triggerAttack(
+            'C3',
+            // this.noteLengths[this.currentPeriod],
+            // time
           );
         }
         if (this.boxes2[step]) {
-          this.synth.triggerAttackRelease(
-            'G3',
-            this.noteLengths[this.currentPeriod],
-            time
+          this.sampler1.triggerAttack(
+            'D3',
+            // this.noteLengths[this.currentPeriod],
+            // time
           );
         }
         if (this.boxes3[step]) {
@@ -172,7 +137,9 @@ export class SeqContainerComponent implements OnInit, AfterViewInit {
     this.activeBox = 0;
   }
 
-  // get bpm() {
-  //   return Tone.Transport.bpm.value;
-  // }
+  public changeBPM(v) {
+    console.log('v: ', v);
+    Tone.Transport.bpm.value = v;
+    this.bpm = v;
+  }
 }

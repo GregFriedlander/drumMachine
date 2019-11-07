@@ -47,4 +47,9 @@
 <button (click)="stop()">STOP</button>
 <button (click)="reset()">RESET</button>
 <h1>{{bpm}}</h1>
-<div #button id="button" ></div>
+<app-dial id="bpm"
+          [id]="'bpm'"
+          [min]="50"
+          [max]="250"
+          [step]="1"
+          (change)="changeBPM($event)"></app-dial>
