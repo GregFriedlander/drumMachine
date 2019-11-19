@@ -6,13 +6,15 @@ import { AppComponent } from './app.component';
 import { SeqContainerComponent } from './seq-container/seq-container.component';
 import { DialComponent } from './seq-container/dial/dial.component';
 import { SynthComponent } from './seq-container/synth/synth.component';
+import { ProgressionComponent } from './progression/progression.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SeqContainerComponent,
     DialComponent,
-    SynthComponent
+    SynthComponent,
+    ProgressionComponent
   ],
   imports: [
     BrowserModule,
