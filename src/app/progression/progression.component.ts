@@ -16,6 +16,8 @@ export class ProgressionComponent implements OnInit, AfterViewInit {
   chordIdx = 0;
   step = 0;
   onRepeat;
+  playPauseBtn: string;
+  bpmString: string;
   constructor() {
 
     this.chords = [
@@ -41,6 +43,7 @@ export class ProgressionComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    this.playPauseBtn = 'PLAY';
   }
 
   ngAfterViewInit(): void {
@@ -52,6 +55,7 @@ export class ProgressionComponent implements OnInit, AfterViewInit {
         }
       });
     });
+    this.bpmString = Tone.Transport.bpm.value;
     Tone.Transport.scheduleRepeat(this.onRepeat, '8n');
     Tone.Transport.start();
   }
