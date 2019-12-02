@@ -1,4 +1,4 @@
-<div id="arp-triggers" #triggers>
+<div (keydown)="changeChord($event)" id="arp-triggers" #triggers tabindex="1">
   <input id="chord-1" value="1" type="radio" name="chord" checked />
   <input id="chord-2" value="2" type="radio" name="chord" />
   <input id="chord-3" value="3" type="radio" name="chord" />
@@ -14,7 +14,11 @@
 </div>
 <div id="playback-controls">
   <div id="play-btn">
-    <h1 id="play-toggle">{{ playPauseBtn }}</h1>
+    <h1 id="play-toggle" (click)="playPause()">{{ playPauseBtn }}</h1>
     <h1 id="bpm">{{ bpmString }}</h1>
+    <select name="root-note" id="">
+      <option value="C">C</option>
+      <option value="C#">C#</option>
+    </select>
   </div>
 </div>

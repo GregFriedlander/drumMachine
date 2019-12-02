@@ -12,13 +12,20 @@ export class ProgressionComponent implements OnInit, AfterViewInit {
   $inputs;
   synth;
   gain;
+  chord;
   chords;
+  note;
   chordIdx = 0;
   step = 0;
   onRepeat;
-  playPauseBtn: string;
-  bpmString: string;
+  playPauseBtn: string = 'play';
+  bpmString: string = '80';
+
   constructor() {
+
+    // Put this here to avoid 'changed since checked' error message
+    Tone.Transport.bpm.value = 80;
+    this.bpmString = Tone.Transport.bpm.value;
 
     this.chords = [
       'A0 C5 E1',
@@ -35,9 +42,12 @@ export class ProgressionComponent implements OnInit, AfterViewInit {
 
 
     this.onRepeat = (time?: any) => {
-      const chord = this.chords[this.chordIdx];
-      const note = chord[this.step % chord.length];
-      this.synth.triggerAttackRelease(note, '8n', time);
+      this.chord = this.chords[this.chordIdx];
+      this.note = this.chord[this.step % this.chord.length];
+      console.log('STEP: ', this.step);
+      console.log('CHORD: ', this.chord);
+      console.log('NOTE: ', this.note);
+      this.synth.triggerAttackRelease(this.note, '8n', time);
       this.step++;
     };
   }
@@ -51,13 +61,22 @@ export class ProgressionComponent implements OnInit, AfterViewInit {
     this.$inputs.forEach($input => {
       $input.addEventListener('change', () => {
         if ($input.checked) {
+          this.step = 0;
           this.handleChord($input.value);
         }
       });
     });
-    this.bpmString = Tone.Transport.bpm.value;
     Tone.Transport.scheduleRepeat(this.onRepeat, '8n');
-    Tone.Transport.start();
+  }
+
+  public playPause() {
+    if (Tone.Transport.state === 'stopped') {
+      this.playPauseBtn = 'STOP'
+      Tone.Transport.start();
+    } else {
+      this.playPauseBtn = 'START';
+      Tone.Transport.stop();
+    }
   }
 
   // Handle chord change
@@ -80,6 +99,43 @@ export class ProgressionComponent implements OnInit, AfterViewInit {
       }
     }
     return arr;
+  }
+
+  public changeChord(event) {
+    switch (event.key) {
+      // PLAY/PAUSE spacebar
+      case ' ':
+        this.$inputs[this.chordIdx].checked = true;
+        this.playPause();
+        break;
+      case '1':
+        this.chordIdx = 0;
+        this.step = 0;
+        this.$inputs[this.chordIdx].checked = true;
+        break;
+      case '2':
+        this.chordIdx = 1;
+        this.step = 0;
+        this.$inputs[this.chordIdx].checked = true;
+        break;
+      case '3':
+        this.chordIdx = 2;
+        this.step = 0;
+        this.$inputs[this.chordIdx].checked = true;
+        break;
+      case '4':
+        this.chordIdx = 3;
+        this.step = 0;
+        this.$inputs[this.chordIdx].checked = true;
+        break;
+      case '5':
+        this.chordIdx = 4;
+        this.step = 0;
+        this.$inputs[this.chordIdx].checked = true;
+        break;
+      default:
+        this.$inputs[this.chordIdx].checked = true;
+    }
   }
 
 }
