@@ -14,11 +14,14 @@
 </div>
 <div id="playback-controls">
   <div id="play-btn">
-    <h1 id="play-toggle" (click)="playPause()">{{ playPauseBtn }}</h1>
-    <h1 id="bpm">{{ bpmString }}</h1>
-    <select name="root-note" id="">
-      <option value="C">C</option>
-      <option value="C#">C#</option>
+    <h3 id="play-toggle" (click)="playPause()">{{ playPauseBtn }}</h3>
+    <h3 id="bpm">{{ bpmString }}</h3>
+    <select #root (change)="changeRootNote(root.value)" name="root-note">
+      <option *ngFor="let note of chromaticScale" [value]="note">{{note}}</option>
     </select>
+    <select #scaleType (change)="changeScaleType(scaleType.value)" name="scale-type">
+      <option *ngFor="let scale of scaleTypes" [value]="scale">{{scale}}</option>
+    </select>
+    <h3>{{ rootNote$ | async }} {{ scaleType$ | async }}</h3>
   </div>
 </div>

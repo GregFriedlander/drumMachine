@@ -1,5 +1,7 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import * as Tone from 'tone';
+import { ChordConstructorService } from '../chord-constructor.service';
+import { ChordScale } from '../chord-scale.model';
 
 @Component({
   selector: 'app-progression',
@@ -18,10 +20,16 @@ export class ProgressionComponent implements OnInit, AfterViewInit {
   chordIdx = 0;
   step = 0;
   onRepeat;
-  playPauseBtn: string = 'play';
-  bpmString: string = '80';
+  playPauseBtn = 'play';
+  bpmString = '80';
 
-  constructor() {
+  rootNote$ = this.chordService.rootNote$;
+  scaleType$ = this.chordService.scaleType$;
+
+  chromaticScale = ChordScale.chromaticScale;
+  scaleTypes = ChordScale.scaleTypes;
+
+  constructor(private chordService: ChordConstructorService) {
 
     // Put this here to avoid 'changed since checked' error message
     Tone.Transport.bpm.value = 80;
@@ -71,7 +79,7 @@ export class ProgressionComponent implements OnInit, AfterViewInit {
 
   public playPause() {
     if (Tone.Transport.state === 'stopped') {
-      this.playPauseBtn = 'STOP'
+      this.playPauseBtn = 'STOP';
       Tone.Transport.start();
     } else {
       this.playPauseBtn = 'START';
@@ -136,6 +144,14 @@ export class ProgressionComponent implements OnInit, AfterViewInit {
       default:
         this.$inputs[this.chordIdx].checked = true;
     }
+  }
+
+  public changeRootNote(note) {
+    this.chordService.rotateRootNote(note);
+  }
+
+  public changeScaleType(scale) {
+    this.chordService.changeScaleType(scale);
   }
 
 }
