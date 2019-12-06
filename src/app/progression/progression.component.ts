@@ -147,11 +147,11 @@ export class ProgressionComponent implements OnInit, AfterViewInit {
   }
 
   public changeRootNote(note) {
-    this.chordService.rotateRootNote(note);
+    this.chordService.rotateScale(note);
   }
 
   public changeScaleType(scale) {
-    this.chordService.changeScaleType(scale);
+    this.chordService.configureSteps(scale);
   }
 
 }
