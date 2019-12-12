@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { ChordScale } from './chord-scale.model';
+import * as _ from 'lodash';
 
 @Injectable({
   providedIn: 'root'
@@ -65,13 +66,66 @@ export class ChordConstructorService {
   }
 
   public createVoices(scale: string[]) {
+    const counter = _.range(1, 8);
+    const oct = 3;
+
     const voiceObj = {
       1: [
         scale[0],
         scale[2],
         scale[4]
-      ]
+      ],
+      2: [
+        scale[1],
+        scale[3],
+        scale[5],
+      ],
+      3: [
+        scale[2],
+        scale[4],
+        scale[6],
+      ],
+      4: [
+        scale[3],
+        scale[5],
+        scale[0],
+      ],
+      5: [
+        scale[4],
+        scale[6],
+        scale[1],
+      ],
+      6: [
+        scale[5],
+        scale[0],
+        scale[2],
+      ],
+      7: [
+        scale[6],
+        scale[1],
+        scale[3],
+      ],
     };
+    // console.log('VOICES OBJ: ', voiceObj);
+    counter.forEach(index => {
+      const idx = index.toString();
+      let num = 0;
+      let count = 0
+      voiceObj[idx].forEach(x => {
+        const newNote = `${x}${num}`;
+        console.log('X ', x);
+        console.log('NEW NOTE ', newNote);
+        console.log('******** ', scale.indexOf(x));
+        if (scale.indexOf(x) < scale.indexOf(voiceObj[idx][count])) {
+          console.log('!!!!!! ', scale.indexOf(voiceObj[idx][0]));
+        }
+        // console.log('^^^^^^ ', count);
+        voiceObj[idx][count] = newNote;
+        count++;
+      });
+      console.log('--------------');
+    })
+    console.log('VOICES OBJ: ', voiceObj);
     return voiceObj;
   }
 
