@@ -67,10 +67,11 @@ export class ChordConstructorService {
     this.createVoices(newScale);
   }
 
-  public createVoices(scale: string[]): void {
+
+  // TODO: Bring Oct in dynamically
+  public createVoices(scale: string[], oct = 3): void {
     const counter = _.range(1, 8);
     this.voicesWithOctives = {};
-    const oct = 3;
 
     const voiceObj = {
       1: [
@@ -112,6 +113,7 @@ export class ChordConstructorService {
     counter.forEach(index => {
       let count = 0
       const newArr = [];
+      // Add logic that skips the first step
       voiceObj[index].forEach(note => {
         if (scale.indexOf(note) < scale.indexOf(voiceObj[index][0])) {
           newArr.push(note + (oct + 1 ) );
@@ -121,11 +123,9 @@ export class ChordConstructorService {
         count++;
       });
       this.voicesWithOctives[index] = newArr;
-      // console.log('--------------');
     })
     console.log('VOICES OBJ: ', this.voicesWithOctives);
     this.selectedScale$.next(this.voicesWithOctives);
-    // return voiceObj;
   }
 
 }

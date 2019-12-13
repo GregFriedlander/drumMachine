@@ -1,15 +1,12 @@
 <div (keydown)="changeChord($event)" id="arp-triggers" #triggers tabindex="1">
-  <input id="chord-1" value="1" type="radio" name="chord" checked />
-  <input id="chord-2" value="2" type="radio" name="chord" />
-  <input id="chord-3" value="3" type="radio" name="chord" />
-  <input id="chord-4" value="4" type="radio" name="chord" />
-  <input id="chord-5" value="5" type="radio" name="chord" />
+    <input *ngFor="let chord of chords | keyvalue; let i = index"
+           id="chord-{{chord.key}}"
+           value="{{i+1}}" type="radio"
+           name="chord">
   <ul>
-    <li><label for="chord-1">1</label></li>
-    <li><label for="chord-2">2</label></li>
-    <li><label for="chord-3">3</label></li>
-    <li><label for="chord-4">4</label></li>
-    <li><label for="chord-5">5</label></li>
+    <li *ngFor="let chord of chords | keyvalue let i = index">
+      <label for="chord-{{chord.key}}">{{chord.value[0]}}</label>
+    </li>
   </ul>
 </div>
 <div id="playback-controls">

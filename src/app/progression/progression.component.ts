@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { first } from 'rxjs/operators';
+import { first, take } from 'rxjs/operators';
 import * as Tone from 'tone';
 import { ChordConstructorService } from '../chord-constructor.service';
 import { ChordScale } from '../chord-scale.model';
@@ -16,6 +16,8 @@ export class ProgressionComponent implements OnInit, AfterViewInit {
   synth;
   gain;
   chord;
+
+  // TODO: The chords need to come into this component as an input
   chords: any;
   note;
   chordIdx = 1;
@@ -45,7 +47,7 @@ export class ProgressionComponent implements OnInit, AfterViewInit {
     // ].map(this.formatChords);
 
     this.chordService.selectedScale$
-      // .pipe(first(x => x !== null)) // if this is here the chord doesn't get updated
+      // .pipe(take(1)) // if this is here the chord doesn't get updated
       .subscribe(x => {
        this.chords = x;
        console.log('CHORDS: ', this.chords);
@@ -55,7 +57,6 @@ export class ProgressionComponent implements OnInit, AfterViewInit {
 
     this.gain.toMaster();
     this.synth.connect(this.gain);
-
 
     this.onRepeat = (time?: any) => {
       this.chord = this.chords[this.chordIdx];
@@ -74,6 +75,8 @@ export class ProgressionComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.$inputs = this.triggers.nativeElement.querySelectorAll('input');
+    this.$inputs[0].checked = true;
+    console.log('INPUTS: ', this.$inputs);
     this.$inputs.forEach($input => {
       $input.addEventListener('change', () => {
         if ($input.checked) {
