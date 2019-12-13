@@ -15,7 +15,9 @@ export class ChordConstructorService {
 
   public rootNote$ = new BehaviorSubject<string>(this.currentRootNote);
   public scaleType$ = new BehaviorSubject<string>(this.currentScaleType);
-  public selectedScale$ = new BehaviorSubject<string[]>(this.chromaticScale); // Change to Obj with voices
+  public selectedScale$ = new BehaviorSubject<any>(null); // Change to Obj with voices
+
+  public voicesWithOctives;
 
   constructor() {
     this.createScale();
@@ -65,8 +67,9 @@ export class ChordConstructorService {
     this.createVoices(newScale);
   }
 
-  public createVoices(scale: string[]) {
+  public createVoices(scale: string[]): void {
     const counter = _.range(1, 8);
+    this.voicesWithOctives = {};
     const oct = 3;
 
     const voiceObj = {
@@ -106,27 +109,23 @@ export class ChordConstructorService {
         scale[3],
       ],
     };
-    // console.log('VOICES OBJ: ', voiceObj);
     counter.forEach(index => {
-      const idx = index.toString();
-      let num = 0;
       let count = 0
-      voiceObj[idx].forEach(x => {
-        const newNote = `${x}${num}`;
-        console.log('X ', x);
-        console.log('NEW NOTE ', newNote);
-        console.log('******** ', scale.indexOf(x));
-        if (scale.indexOf(x) < scale.indexOf(voiceObj[idx][count])) {
-          console.log('!!!!!! ', scale.indexOf(voiceObj[idx][0]));
+      const newArr = [];
+      voiceObj[index].forEach(note => {
+        if (scale.indexOf(note) < scale.indexOf(voiceObj[index][0])) {
+          newArr.push(note + (oct + 1 ) );
+        } else {
+          newArr.push(note + oct);
         }
-        // console.log('^^^^^^ ', count);
-        voiceObj[idx][count] = newNote;
         count++;
       });
-      console.log('--------------');
+      this.voicesWithOctives[index] = newArr;
+      // console.log('--------------');
     })
-    console.log('VOICES OBJ: ', voiceObj);
-    return voiceObj;
+    console.log('VOICES OBJ: ', this.voicesWithOctives);
+    this.selectedScale$.next(this.voicesWithOctives);
+    // return voiceObj;
   }
 
 }
