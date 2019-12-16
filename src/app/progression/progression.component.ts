@@ -1,5 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { first, take } from 'rxjs/operators';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import * as Tone from 'tone';
 import { ChordConstructorService } from '../chord-constructor.service';
 import { ChordScale } from '../chord-scale.model';
@@ -26,25 +25,21 @@ export class ProgressionComponent implements OnInit, AfterViewInit {
   playPauseBtn = 'play';
   bpmString = '80';
 
+  // TODO: MOVE ONCE IT WORKS
+  direction = ['up', 'down'];
+  selectedDirection = 'up';
+
   rootNote$ = this.chordService.rootNote$;
   scaleType$ = this.chordService.scaleType$;
 
   chromaticScale = ChordScale.chromaticScale;
   scaleTypes = ChordScale.scaleTypes;
 
-  constructor(private chordService: ChordConstructorService) {
+  constructor(private chordService: ChordConstructorService, private cdr: ChangeDetectorRef) {
 
     // Put this here to avoid 'changed since checked' error message
     Tone.Transport.bpm.value = 80;
     this.bpmString = Tone.Transport.bpm.value;
-
-    // this.chords = [
-    //   'A0 C5 E1',
-    //   'F0 A0 C1',
-    //   'G0 B0 D1',
-    //   'D0 F0 A0',
-    //   'E0 G0 B0'
-    // ].map(this.formatChords);
 
     this.chordService.selectedScale$
       // .pipe(take(1)) // if this is here the chord doesn't get updated
@@ -60,12 +55,7 @@ export class ProgressionComponent implements OnInit, AfterViewInit {
 
     this.onRepeat = (time?: any) => {
       this.chord = this.chords[this.chordIdx];
-      this.note = this.chord[this.step % this.chord.length];
-      console.log('STEP: ', this.step);
-      console.log('CHORD: ', this.chord);
-      // console.log('NOTE: ', this.note);
-      this.synth.triggerAttackRelease(this.note, '8n', time);
-      this.step++;
+      this.playArp(time);
     };
   }
 
@@ -74,18 +64,45 @@ export class ProgressionComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    this.handleInputs();
+    Tone.Transport.scheduleRepeat(this.onRepeat, '8n');
+  }
+
+  public playArp(time) {
+    if (this.selectedDirection === 'up') {
+      this.note = this.chord[this.step % this.chord.length];
+      // console.log('CHORD: ', this.chord);
+      console.log('STEP: ', this.step);
+      console.log('NOTE: ', this.note);
+      this.synth.triggerAttackRelease(this.note, '8n', time);
+      this.step++;
+    } else if (this.selectedDirection === 'down') {
+      this.note = this.chord[this.step % this.chord.length];
+      // console.log('CHORD: ', this.chord);
+      console.log('STEP: ', this.step);
+      console.log('NOTE: ', this.note);
+      this.synth.triggerAttackRelease(this.note, '8n', time);
+      this.step--;
+      if (this.step < 0) {
+        this.step = this.chord.length - 1;
+      }
+    }
+  }
+
+  // FIND A BETTER WAY CAUSE THIS SUCKS
+  public handleInputs(): void {
     this.$inputs = this.triggers.nativeElement.querySelectorAll('input');
     this.$inputs[0].checked = true;
-    console.log('INPUTS: ', this.$inputs);
     this.$inputs.forEach($input => {
       $input.addEventListener('change', () => {
+        console.log('*******');
         if ($input.checked) {
           this.step = 0;
           this.handleChord($input.value);
         }
       });
     });
-    Tone.Transport.scheduleRepeat(this.onRepeat, '16n');
+    this.triggers.nativeElement.focus();
   }
 
   public playPause() {
@@ -103,6 +120,7 @@ export class ProgressionComponent implements OnInit, AfterViewInit {
     this.chordIdx = parseInt(valueString, 10);
   }
 
+  // Move this functionality out of component
   public changeChord(event) {
     switch (event.key) {
       // PLAY/PAUSE spacebar
@@ -135,17 +153,39 @@ export class ProgressionComponent implements OnInit, AfterViewInit {
         this.step = 0;
         this.$inputs[this.chordIdx - 1].checked = true;
         break;
+      case '6':
+        this.chordIdx = 6;
+        this.step = 0;
+        this.$inputs[this.chordIdx - 1].checked = true;
+        break;
+      case '7':
+        this.chordIdx = 7;
+        this.step = 0;
+        this.$inputs[this.chordIdx - 1].checked = true;
+        break;
       default:
         this.$inputs[this.chordIdx - 1].checked = true;
     }
   }
 
-  public changeRootNote(note) {
+  public changeRootNote(note): void {
     this.chordService.rotateScale(note);
+    this.cdr.detectChanges();
+    this.handleInputs();
   }
 
-  public changeScaleType(scale) {
+  public changeScaleType(scale): void {
     this.chordService.configureSteps(scale);
+  }
+
+  public changeArpDirection(direction): void {
+    this.selectedDirection = direction;
+    console.log('-----------------------', this.selectedDirection);
+    if (this.selectedDirection === 'down') {
+      this.step = this.chord.length - 1;
+    } else if (this.selectedDirection === 'up') {
+      this.step = 0;
+    }
   }
 
   // ORIGINAL TUTORIAL SOLUTION

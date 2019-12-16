@@ -116,7 +116,7 @@ export class ChordConstructorService {
       // Add logic that skips the first step
       voiceObj[index].forEach(note => {
         if (scale.indexOf(note) < scale.indexOf(voiceObj[index][0])) {
-          newArr.push(note + (oct + 1 ) );
+          newArr.push(note + (oct + 1) );
         } else {
           newArr.push(note + oct);
         }

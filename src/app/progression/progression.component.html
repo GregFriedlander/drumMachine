@@ -20,7 +20,20 @@
       <select #scaleType (change)="changeScaleType(scaleType.value)" name="scale-type">
         <option *ngFor="let scale of scaleTypes" [value]="scale">{{scale}}</option>
       </select>
+      <select #arpDirection (change)="changeArpDirection(arpDirection.value)" name="arp-direction">
+        <option *ngFor="let d of direction" [value]="d">{{d}}</option>
+      </select>
     </div>
     <h3>{{ rootNote$ | async }} {{ scaleType$ | async }}</h3>
+  </div>
+  <div id="control">
+<!--    <mat-form-field class="chord-select">-->
+<!--      <mat-label>Root Note</mat-label>-->
+<!--      <mat-select panelClass="test" #root (selectionChange)="changeRootNote(root.value)" name="root-note">-->
+<!--        <mat-option *ngFor="let note of chromaticScale" value="{{note}}">{{note}}</mat-option>-->
+<!--&lt;!&ndash;        <mat-option value="option2">Option 2</mat-option>&ndash;&gt;-->
+<!--&lt;!&ndash;        <mat-option value="option3">Option 3</mat-option>&ndash;&gt;-->
+<!--      </mat-select>-->
+<!--    </mat-form-field>-->
   </div>
 </div>
