@@ -10,7 +10,6 @@ import { ProgressionComponent } from './progression/progression.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatSelectModule} from '@angular/material/select';
 
-
 @NgModule({
   declarations: [
     AppComponent,

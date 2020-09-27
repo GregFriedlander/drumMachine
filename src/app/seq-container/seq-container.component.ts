@@ -1,5 +1,12 @@
-import { DOCUMENT } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, Inject, NgZone, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  NgZone,
+  OnInit,
+  ViewChild,
+  ViewEncapsulation
+} from '@angular/core';
 import * as _ from 'lodash';
 import * as Tone from 'tone';
 
@@ -7,9 +14,10 @@ import * as Tone from 'tone';
   selector: 'app-seq-container',
   templateUrl: './seq-container.component.html',
   styleUrls: ['./seq-container.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+  encapsulation: ViewEncapsulation.None
 })
 export class SeqContainerComponent implements OnInit, AfterViewInit {
+
   @ViewChild('container') container: ElementRef;
   @ViewChild('button') button: ElementRef;
   // @ViewChild('synthTest', {static: false}) synthTest;
@@ -21,7 +29,7 @@ export class SeqContainerComponent implements OnInit, AfterViewInit {
   public boxes2: boolean[];
   public boxes3: boolean[];
   public isPlaying = false;
-  public currentPeriod = 4;
+  public currentPeriod = 0;
   public noteLengths = ['64n', '32n', '16n', '8n', '4n'];
   public notes = ['E4', 'G3'];
   public pulse = false;
@@ -30,18 +38,16 @@ export class SeqContainerComponent implements OnInit, AfterViewInit {
   public bpm;
   hitStop = false;
 
-  constructor(
-    @Inject(DOCUMENT) private document: Document,
-    private zone: NgZone,
-  ) {
+  constructor(private zone: NgZone) {
     this.synth = new Tone.Synth();
     this.sampler1 = new Tone.Sampler({
-      C3 : '../../assets/temp-audio/indst_kick_4.wav',
-      D3 : '../../assets/temp-audio/hip_sn_7.wav'
+      C3: '../../assets/temp-audio/indst_kick_4.wav',
+      D3: '../../assets/temp-audio/hip_sn_7.wav'
     });
     this.configureSequence();
     this.synth.toMaster();
     this.sampler1.toMaster();
+    // Tone.Transport.
     Tone.Transport.start();
     Tone.context.latencyHint = 'fastest';
     Tone.context.lookAhead = 0.01;
@@ -54,9 +60,7 @@ export class SeqContainerComponent implements OnInit, AfterViewInit {
     this.bpm = Tone.Transport.bpm.value;
   }
 
-  ngAfterViewInit(): void {
-
-  }
+  ngAfterViewInit(): void {}
 
   private configureSequence() {
     let wasPlaying = false;
@@ -73,14 +77,14 @@ export class SeqContainerComponent implements OnInit, AfterViewInit {
         const step = i % 16;
         if (this.boxes[step]) {
           this.sampler1.triggerAttack(
-            'C3',
+            'C3'
             // this.noteLengths[this.currentPeriod],
             // time
           );
         }
         if (this.boxes2[step]) {
           this.sampler1.triggerAttack(
-            'D3',
+            'D3'
             // this.noteLengths[this.currentPeriod],
             // time
           );
@@ -146,5 +150,14 @@ export class SeqContainerComponent implements OnInit, AfterViewInit {
 
   public setSynth(value) {
     this.synthTest = value;
+  }
+
+  public changeOsc(oscType) {
+    console.log('osc type: ', oscType);
+    this.synthTest.oscillator.type = oscType;
+  }
+
+  public changeFreq(freq) {
+    this.synthTest.frequency.value = freq;
   }
 }
