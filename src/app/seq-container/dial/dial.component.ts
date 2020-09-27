@@ -8,7 +8,7 @@ import * as Nexus from '../../../assets/NexusUI.js';
   styleUrls: ['./dial.component.scss']
 })
 export class DialComponent implements OnInit, AfterViewInit {
-  @ViewChild('dial', {static: false}) dial: TemplateRef<any>;
+  @ViewChild('dial') dial: TemplateRef<any>;
   @Input() id: string;
   @Input() signal: AudioParam;
   @Input() size: [number, number];

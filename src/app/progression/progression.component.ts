@@ -10,7 +10,7 @@ import { ChordScale } from '../chord-scale.model';
 })
 export class ProgressionComponent implements OnInit, AfterViewInit {
 
-  @ViewChild('triggers', {static: false}) triggers;
+  @ViewChild('triggers') triggers;
   $inputs;
   synth;
   gain;
