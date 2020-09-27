@@ -17,10 +17,10 @@ import * as Tone from 'tone';
   encapsulation: ViewEncapsulation.None
 })
 export class SeqContainerComponent implements OnInit, AfterViewInit {
-  @ViewChild('container', { static: false }) container: ElementRef;
-  @ViewChild('button', { static: false }) button: ElementRef;
 
-  public oscillatorArray = ['sine', 'square', 'sawtooth', 'triangle'];
+  @ViewChild('container') container: ElementRef;
+  @ViewChild('button') button: ElementRef;
+  // @ViewChild('synthTest', {static: false}) synthTest;
 
   synthTest;
   public synth: any;

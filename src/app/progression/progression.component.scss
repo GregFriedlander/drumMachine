@@ -1,0 +1,84 @@
+:host {
+  margin: 0;
+  //height: 100%;
+  #arp-triggers {
+    overflow: hidden;
+    height: 70%;
+    input {
+      position: absolute;
+      left: -99999px;
+      @for $i from 1 through 7 {
+        &#chord-#{$i}:checked ~ ul label[for="chord-#{$i}"] {
+          background: tomato;
+        }
+      }
+    }
+    ul {
+      height: 100%;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      li {
+        flex: 1;
+        label {
+          height: 100%;
+          display: block;
+          cursor: pointer;
+          text-align: center;
+          padding: .5rem;
+          background: black;
+          color: white;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-content: center;
+          font-size: 3rem;
+        }
+        + li {
+          border-left: .25rem solid #191919;
+        }
+      }
+    }
+  }
+  #playback-controls {
+    height: 30%;
+    background: #333;
+    display: flex;
+    #play-btn {
+      margin-top: 0;
+      height: 100%;
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-content: center;
+      text-align: center;
+      font-size: 1rem;
+      color: white;
+      #scale-selection {
+        select {
+          width: 25%;
+        }
+      }
+    }
+    #control {
+      width: 50%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      background-color: #333;
+      color: white;
+      mat-label {
+        color: white;
+      }
+      .mat-select-arrow {
+        color: white !important;
+      }
+      .chord-select {
+        width: 50%;
+      }
+    }
+  }
+}
+

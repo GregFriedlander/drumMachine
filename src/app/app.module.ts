@@ -6,7 +6,9 @@ import { AppComponent } from './app.component';
 import { SeqContainerComponent } from './seq-container/seq-container.component';
 import { DialComponent } from './seq-container/dial/dial.component';
 import { SynthComponent } from './seq-container/synth/synth.component';
-import { SelectComponent } from './seq-container/select/select.component';
+import { ProgressionComponent } from './progression/progression.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -14,11 +16,13 @@ import { SelectComponent } from './seq-container/select/select.component';
     SeqContainerComponent,
     DialComponent,
     SynthComponent,
-    SelectComponent
+    ProgressionComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]
