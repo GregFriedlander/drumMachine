@@ -9,6 +9,7 @@ import { SynthComponent } from './seq-container/synth/synth.component';
 import { ProgressionComponent } from './progression/progression.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatSelectModule} from '@angular/material/select';
+import { ChordFinderComponent } from './chord-finder/chord-finder.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import {MatSelectModule} from '@angular/material/select';
     SeqContainerComponent,
     DialComponent,
     SynthComponent,
-    ProgressionComponent
+    ProgressionComponent,
+    ChordFinderComponent
   ],
   imports: [
     BrowserModule,

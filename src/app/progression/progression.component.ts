@@ -71,16 +71,16 @@ export class ProgressionComponent implements OnInit, AfterViewInit {
   public playArp(time) {
     if (this.selectedDirection === 'up') {
       this.note = this.chord[this.step % this.chord.length];
-      // console.log('CHORD: ', this.chord);
-      console.log('STEP: ', this.step);
-      console.log('NOTE: ', this.note);
+      console.log('CHORD: ', this.chord);
+      // console.log('STEP: ', this.step);
+      // console.log('NOTE: ', this.note);
       this.synth.triggerAttackRelease(this.note, '8n', time);
       this.step++;
     } else if (this.selectedDirection === 'down') {
       this.note = this.chord[this.step % this.chord.length];
       // console.log('CHORD: ', this.chord);
-      console.log('STEP: ', this.step);
-      console.log('NOTE: ', this.note);
+      // console.log('STEP: ', this.step);
+      // console.log('NOTE: ', this.note);
       this.synth.triggerAttackRelease(this.note, '8n', time);
       this.step--;
       if (this.step < 0) {
@@ -97,6 +97,7 @@ export class ProgressionComponent implements OnInit, AfterViewInit {
       $input.addEventListener('change', () => {
         console.log('*******');
         if ($input.checked) {
+          console.log('input value: ', $input.value);
           this.step = 0;
           this.handleChord($input.value);
         }
@@ -118,6 +119,7 @@ export class ProgressionComponent implements OnInit, AfterViewInit {
   // Handle chord change
   private handleChord(valueString) {
     this.chordIdx = parseInt(valueString, 10);
+    console.log('chordIdx: ', this.chordIdx);
   }
 
   // Move this functionality out of component

@@ -1,50 +1,36 @@
-<div id="step-container" #container>
-  <div id="row1" class="row">
-    <ng-container *ngFor="let box of boxes; let i = index">
-      <div
-        #pad
-        id="button{{ i }}"
-        (click)="activateStep(i, 1)"
-        class="box"
-        [ngStyle]="{
-          border: activeBox === i ? '2px yellow solid' : 'black',
-          'background-color': boxes[i] ? 'white' : '#283039'
-        }"
-      ></div>
-    </ng-container>
-  </div>
-  <div id="row2" class="row">
-    <ng-container *ngFor="let box of boxes2; let i = index">
-      <div
-        #pad
-        (click)="activateStep(i, 2)"
-        class="box"
-        [ngStyle]="{
-          border: activeBox === i ? '2px yellow solid' : 'black',
-          'background-color': boxes2[i] ? 'white' : '283039'
-        }"
-      ></div>
-    </ng-container>
-  </div>
-  <div id="row3" class="row">
-    <ng-container *ngFor="let box of boxes3; let i = index">
-      <div
-        #pad
-        (click)="activateStep(i, 3)"
-        class="box"
-        [ngStyle]="{
-          border: activeBox === i ? '2px yellow solid' : 'black',
-          'background-color': boxes3[i] ? 'white' : '283039'
-        }"
-      ></div>
-    </ng-container>
-  </div>
-<!--  TODO: // Make a new arr of boxes for row 4-->
-<!--  <div id="row4" class="row">-->
+<!--<div id="step-container" #container>-->
+<!--  <div id="row1" class="row">-->
+<!--    <ng-container *ngFor="let box of boxes; let i = index">-->
+<!--      <div-->
+<!--        #pad-->
+<!--        id="button{{ i }}"-->
+<!--        (click)="activateStep(i, 1)"-->
+<!--        class="box"-->
+<!--        [ngStyle]="{-->
+<!--          border: activeBox === i ? '2px yellow solid' : 'black',-->
+<!--          'background-color': boxes[i] ? 'white' : '#283039'-->
+<!--        }"-->
+<!--      ></div>-->
+<!--    </ng-container>-->
+<!--  </div>-->
+<!--  <div id="row2" class="row">-->
+<!--    <ng-container *ngFor="let box of boxes2; let i = index">-->
+<!--      <div-->
+<!--        #pad-->
+<!--        (click)="activateStep(i, 2)"-->
+<!--        class="box"-->
+<!--        [ngStyle]="{-->
+<!--          border: activeBox === i ? '2px yellow solid' : 'black',-->
+<!--          'background-color': boxes2[i] ? 'white' : '283039'-->
+<!--        }"-->
+<!--      ></div>-->
+<!--    </ng-container>-->
+<!--  </div>-->
+<!--  <div id="row3" class="row">-->
 <!--    <ng-container *ngFor="let box of boxes3; let i = index">-->
 <!--      <div-->
 <!--        #pad-->
-<!--        (click)="activateStep(i, 4)"-->
+<!--        (click)="activateStep(i, 3)"-->
 <!--        class="box"-->
 <!--        [ngStyle]="{-->
 <!--          border: activeBox === i ? '2px yellow solid' : 'black',-->
@@ -53,41 +39,55 @@
 <!--      ></div>-->
 <!--    </ng-container>-->
 <!--  </div>-->
-</div>
-<button (click)="play()">PLAY</button>
-<button (click)="stop()">STOP</button>
-<button (click)="reset()">RESET</button>
-<app-synth (newSynth)="setSynth($event)"></app-synth>
-<h1>{{ bpm }}</h1>
-<app-dial
-  id="bpm"
-  [id]="'bpm'"
-  [min]="50"
-  [max]="250"
-  [step]="1"
-  (change)="changeBPM($event)"
-></app-dial>
-<div id="synth-controls">
-  <div class="control-container">
-    <p>OSC Select</p>
-    <app-select
-      id="select-osc"
-      [id]="'select-osc'"
-      [options]=oscillatorArray
-      [value]=oscillatorArray[0]
-      (change)="changeOsc($event)"
-    ></app-select>
-  </div>
-  <div class="control-container">
-    <p>Frequency</p>
-    <app-dial
-      id="dial-freq"
-      [id]="'dial-freq'"
-      [min]="1"
-      [max]="100"
-      [step]="1"
-      (change)="changeFreq($event)"
-    ></app-dial>
-  </div>
-</div>
+<!--&lt;!&ndash;  TODO: // Make a new arr of boxes for row 4&ndash;&gt;-->
+<!--&lt;!&ndash;  <div id="row4" class="row">&ndash;&gt;-->
+<!--&lt;!&ndash;    <ng-container *ngFor="let box of boxes3; let i = index">&ndash;&gt;-->
+<!--&lt;!&ndash;      <div&ndash;&gt;-->
+<!--&lt;!&ndash;        #pad&ndash;&gt;-->
+<!--&lt;!&ndash;        (click)="activateStep(i, 4)"&ndash;&gt;-->
+<!--&lt;!&ndash;        class="box"&ndash;&gt;-->
+<!--&lt;!&ndash;        [ngStyle]="{&ndash;&gt;-->
+<!--&lt;!&ndash;          border: activeBox === i ? '2px yellow solid' : 'black',&ndash;&gt;-->
+<!--&lt;!&ndash;          'background-color': boxes3[i] ? 'white' : '283039'&ndash;&gt;-->
+<!--&lt;!&ndash;        }"&ndash;&gt;-->
+<!--&lt;!&ndash;      ></div>&ndash;&gt;-->
+<!--&lt;!&ndash;    </ng-container>&ndash;&gt;-->
+<!--&lt;!&ndash;  </div>&ndash;&gt;-->
+<!--</div>-->
+<!--<button (click)="play()">PLAY</button>-->
+<!--<button (click)="stop()">STOP</button>-->
+<!--<button (click)="reset()">RESET</button>-->
+<!--<app-synth (newSynth)="setSynth($event)"></app-synth>-->
+<!--<h1>{{ bpm }}</h1>-->
+<!--<app-dial-->
+<!--  id="bpm"-->
+<!--  [id]="'bpm'"-->
+<!--  [min]="50"-->
+<!--  [max]="250"-->
+<!--  [step]="1"-->
+<!--  (change)="changeBPM($event)"-->
+<!--&gt;</app-dial>-->
+<!--<div id="synth-controls">-->
+<!--  <div class="control-container">-->
+<!--    <p>OSC Select</p>-->
+<!--    <app-select-->
+<!--      id="select-osc"-->
+<!--      [id]="'select-osc'"-->
+<!--      [options]=oscillatorArray-->
+<!--      [value]=oscillatorArray[0]-->
+<!--      (change)="changeOsc($event)"-->
+<!--    ></app-select>-->
+<!--  </div>-->
+<!--  <div class="control-container">-->
+<!--    <p>Frequency</p>-->
+<!--    <app-dial-->
+<!--      id="dial-freq"-->
+<!--      [id]="'dial-freq'"-->
+<!--      [min]="1"-->
+<!--      [max]="100"-->
+<!--      [step]="1"-->
+<!--      (change)="changeFreq($event)"-->
+<!--    ></app-dial>-->
+<!--  </div>-->
+<!--</div>-->
 

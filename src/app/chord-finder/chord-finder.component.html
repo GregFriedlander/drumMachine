@@ -1,0 +1,12 @@
+<div id="fretboard">
+
+  <div class="string" *ngFor="let string of numberOfStrings; let indexOfString=index">
+    <div class="fret"  *ngFor="let fret of numberOfFrets; let indexOfFret=index " (click)="addActive(indexOfFret + (indexOfString * 12))">
+      <div class="string-style" #frets></div>
+      <div class="shape-base">
+        <div class="text">{{indexOfFret + (indexOfString * 12)}}</div>
+      </div>
+    </div>
+  </div>
+
+</div>
