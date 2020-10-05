@@ -1,12 +1,18 @@
 <div id="fretboard">
 
   <div class="string" *ngFor="let string of numberOfStrings; let indexOfString=index">
-    <div class="fret"  *ngFor="let fret of numberOfFrets; let indexOfFret=index " (click)="addActive(indexOfFret + (indexOfString * 12))">
-      <div class="string-style" #frets></div>
-      <div class="shape-base">
-        <div class="text">{{indexOfFret + (indexOfString * 12)}}</div>
+    <div class="fret"  *ngFor="let fret of numberOfFrets; let indexOfFret=index " (click)="clickFret(indexOfFret + (indexOfString * 12))">
+      <input #inputs$ id="fret-{{indexOfFret + (indexOfString * 12)}}" type="text" type="radio" value="{{indexOfFret + (indexOfString * 12)}}">
+      <div class="string-style" #frets>
+        <label for="fret-{{indexOfFret + (indexOfString * 12)}}"></label>
       </div>
     </div>
   </div>
 
 </div>
+
+<button (click)="rotateScale()">ROTATE</button>
+
+<!--let fret of string-->
+<!--string = FretObj[]-->
+

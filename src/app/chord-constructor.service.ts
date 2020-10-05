@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { FretObject } from './chord-finder/chord-finder.component';
 import { ChordScale } from './chord-scale.model';
 import * as _ from 'lodash';
 
@@ -111,7 +112,7 @@ export class ChordConstructorService {
       ],
     };
     counter.forEach(index => {
-      let count = 0
+      let count = 0;
       const newArr = [];
       // Add logic that skips the first step
       voiceObj[index].forEach(note => {
@@ -127,5 +128,35 @@ export class ChordConstructorService {
     console.log('VOICES OBJ: ', this.voicesWithOctives);
     this.selectedScale$.next(this.voicesWithOctives);
   }
+
+  private createGuitarStrings() {
+
+  }
+
+  // todo move below
+  public exampleString: FretObject = [
+    {
+      active: false,
+      note: 'E',
+      octive: 3
+    },
+    {
+      active: false,
+      note: 'F',
+      octive: 3
+    },
+    {
+      active: false,
+      note: 'F#',
+      octive: 3
+    },
+    {
+      active: false,
+      note: 'G',
+      octive: 3
+    },
+  ]
+
+
 
 }
