@@ -233,7 +233,7 @@ export class ChordConstructorService {
     };
 
     counter.forEach(index => {
-      let count = 0
+      let count = 0;
       const newArr = [];
       // Add logic that skips the first step
       // console.log('INDEX:', index);
@@ -256,6 +256,5 @@ export class ChordConstructorService {
     console.log('NEW DEGREES: ', this.newDegrees);
     this.selectedScale$.next(this.voicesWithOctives);
   }
-
 
 }
