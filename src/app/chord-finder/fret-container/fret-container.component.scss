@@ -1,0 +1,30 @@
+.fret-container {
+  display: flex;
+  height: 5rem;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid #776e38;
+  width: 3.15rem;
+  cursor: pointer;
+
+  .string {
+    height: 100%;
+    width: .4rem;
+    background-color: #c9c8c8;
+    position: absolute;
+    z-index: 1;
+  }
+
+  .marker {
+    width: 2rem;
+    height: 2rem;
+    position: relative;
+    background-color: red;
+    border-radius: 50%;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

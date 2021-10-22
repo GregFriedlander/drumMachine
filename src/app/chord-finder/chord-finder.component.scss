@@ -3,47 +3,58 @@
     display: flex;
     border: 2px black solid;
     width: 300px;
-    height: 700px;
+    //height: 700px;
     margin-top: 1rem;
     margin-left: 1rem;
     border-top-width: 10px;
     border-bottom-width: 10px;
     background: linear-gradient(90deg, rgba(17,16,37,1) 0%, rgba(52,52,14,1) 50%, rgba(0,0,0,1) 100%);
 
-    .string {
-      width: 17%;
-      height: 100%;
+    justify-content: space-around;
+    position: relative;
+    align-items: center;
+    align-content: center;
+
+    .full-string-container {
       display: flex;
       flex-direction: column;
-      align-items: center;
 
-      .fret {
-        position: relative;
-        height: 10%;
-        border-bottom: 1px solid #776e38;
-        margin-bottom: 0px;
-        width: 104%;
-        display: flex;
-        align-items: center;
-
-        .shape {
-          width: 80% !important;
-          height: 80% !important;
-          background-color: red !important;
-          border-radius: 50%;
-          z-index: 10;
-          margin: 15%;
-        }
-
-        .string-style {
-          width: 10%;
-          height: 102%;
-          background-color: #c9c8c8;
-          margin: 0 auto;
-        }
-
-      }
     }
+
+    //.string {
+    //  width: 17%;
+    //  height: 100%;
+    //  display: flex;
+    //  flex-direction: column;
+    //  align-items: center;
+    //
+    //  .fret {
+    //    position: relative;
+    //    height: 10%;
+    //    border-bottom: 1px solid #776e38;
+    //    margin-bottom: 0px;
+    //    width: 104%;
+    //    display: flex;
+    //    align-items: center;
+    //
+    //    .shape {
+    //      width: 80% !important;
+    //      height: 80% !important;
+    //      background-color: red !important;
+    //      border-radius: 50%;
+    //      z-index: 10;
+    //      margin: 15%;
+    //    }
+    //
+    //    .string-style {
+    //      width: 10%;
+    //      height: 102%;
+    //      background-color: #c9c8c8;
+    //      margin: 0 auto;
+    //    }
+    //
+    //  }
+    //}
 
     .text {
       //display: none;

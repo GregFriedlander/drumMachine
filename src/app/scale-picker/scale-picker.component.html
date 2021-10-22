@@ -1,0 +1,43 @@
+<!--<div id="playback-controls">-->
+<!--  <div id="play-btn">-->
+<!--&lt;!&ndash;    <h3 id="play-toggle" (click)="playPause()">{{ playPauseBtn }}</h3>&ndash;&gt;-->
+<!--    <h3 id="bpm">{{ bpmString }}</h3>-->
+<!--    <div id="scale-selection">-->
+<!--      <select #root (change)="changeRootNote(root.value)" name="root-note">-->
+<!--        <option *ngFor="let note of chromaticScale" [value]="note">{{note}}</option>-->
+<!--      </select>-->
+<!--      <select #scaleType (change)="changeScaleType(scaleType.value)" name="scale-type">-->
+<!--        <option *ngFor="let scale of scaleTypes" [value]="scale">{{scale}}</option>-->
+<!--      </select>-->
+<!--&lt;!&ndash;      <select #arpDirection (change)="changeArpDirection(arpDirection.value)" name="arp-direction">&ndash;&gt;-->
+<!--&lt;!&ndash;        <option *ngFor="let d of direction" [value]="d">{{d}}</option>&ndash;&gt;-->
+<!--&lt;!&ndash;      </select>&ndash;&gt;-->
+<!--    </div>-->
+<!--    <h3>{{ rootNote$ | async }} {{ scaleType$ | async }}</h3>-->
+<!--  </div>-->
+<!--&lt;!&ndash;  <div id="control">&ndash;&gt;-->
+<!--&lt;!&ndash;    &lt;!&ndash;    <mat-form-field class="chord-select">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;    &lt;!&ndash;      <mat-label>Root Note</mat-label>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;    &lt;!&ndash;      <mat-select panelClass="test" #root (selectionChange)="changeRootNote(root.value)" name="root-note">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;    &lt;!&ndash;        <mat-option *ngFor="let note of chromaticScale" value="{{note}}">{{note}}</mat-option>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;    &lt;!&ndash;&lt;!&ndash;        <mat-option value="option2">Option 2</mat-option>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;    &lt;!&ndash;&lt;!&ndash;        <mat-option value="option3">Option 3</mat-option>&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;    &lt;!&ndash;      </mat-select>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;    &lt;!&ndash;    </mat-form-field>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;  </div>&ndash;&gt;-->
+<!--</div>-->
+
+<div id="scale-selection">
+  <div id="controls">
+    <select #root (change)="changeRootNote(root.value)" name="root-note">
+      <option *ngFor="let note of chromaticScale" [value]="note">{{note}}</option>
+    </select>
+    <select #scaleType (change)="changeScaleType(scaleType.value)" name="scale-type">
+      <option *ngFor="let scale of scaleTypes | keyvalue" [value]="scale">{{scale.key}}</option>
+    </select>
+  </div>
+  <div id="information">
+    <h3>{{ rootNote$ | async }} {{ scaleType$ | async }}</h3>
+  </div>
+  <button (click)="getScale()">Get Back Scale</button>
+</div>

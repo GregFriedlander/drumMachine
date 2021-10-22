@@ -1,0 +1,6 @@
+<div class="fret-container" (click)="makeActive()">
+  <div class="string"></div>
+  <div *ngIf="isActive" class="marker">
+    <p>{{stringValue}}</p>
+  </div>
+</div>

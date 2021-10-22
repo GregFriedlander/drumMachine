@@ -1,0 +1,23 @@
+<ng-container>
+  <div id="display-container">
+    <div id="display">
+      {{ rootNote }}
+    </div>
+    <div id="divider"></div>
+    <div id="selections">
+      <p class="question-title">{{intervalType}} Third</p>
+      <p *ngIf="correctChoice" class="correct-answer">{{ answer }}</p>
+      <p *ngIf="!correctChoice" class="incorrect-answer">{{ answer }}</p>
+    </div>
+  </div>
+  <div id="answers-container">
+<!--    Figure out better solution for the .answer div-->
+    <div class="answer" *ngFor="let note of answerArray">
+      <button (click)="selectChoice(note)" class="answer-btn">{{note}}</button>
+    </div>
+    <div class="answer">
+      <button (click)="nextQuestion()" class="answer-btn">SKIP</button>
+    </div>
+  </div>
+  <button (click)="nextQuestion()">Next</button>
+</ng-container>

@@ -33,7 +33,7 @@ export class ProgressionComponent implements OnInit, AfterViewInit {
   scaleType$ = this.chordService.scaleType$;
 
   chromaticScale = ChordScale.chromaticScale;
-  scaleTypes = ChordScale.scaleTypes;
+  scaleTypes = ChordScale.ScaleTypes;
 
   constructor(private chordService: ChordConstructorService, private cdr: ChangeDetectorRef) {
 
@@ -45,7 +45,7 @@ export class ProgressionComponent implements OnInit, AfterViewInit {
       // .pipe(take(1)) // if this is here the chord doesn't get updated
       .subscribe(x => {
        this.chords = x;
-       console.log('CHORDS: ', this.chords);
+       // console.log('CHORDS: ', this.chords);
       });
     this.synth = new Tone.Synth();
     this.gain = new Tone.Gain(0.4);
@@ -60,6 +60,7 @@ export class ProgressionComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    // console.log('*************** ', ChordScale.stepsInScaleObj);
     this.playPauseBtn = 'PLAY';
   }
 
